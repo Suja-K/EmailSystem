@@ -1,14 +1,16 @@
 import smtplib
+from smtplib import SMTPAuthenticationError
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import os
+
+print('Welcome to Email Sending System, kindly follow all instructions as go on')
 
 
 def send_mail(email, password, recipient, message):
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    #server.starttls() not used because of the port, if .smtp with port 587 were used it'll be relevant
+# server.starttls() not used because of the port, if .smtp with port 587 were used it'll be relevant
     server.login(email, password)
     server.sendmail(your_mail, recipient, message)
     server.quit()
@@ -17,6 +19,7 @@ def send_mail(email, password, recipient, message):
 
 your_mail = input('email: ')
 your_mail_password = input('password: ')
+print("If you're inputing multiple emails use a single space to separate them.")
 recipient_mail = input('receipient_mail: ')
 
 if ' ' in recipient_mail:
@@ -70,7 +73,10 @@ if attach_request != 'y':
 
     send_request = input('Send? Yes (y) or No(n)')
     if send_request == 'y':
-        send_mail(your_mail, your_mail_password, recipient_mail, message_)
+        try:
+            send_mail(your_mail, your_mail_password, recipient_mail, message_)
+        except SMTPAuthenticationError:
+            print('Email not sent.')
     else:
         pass
 
