@@ -5,4 +5,4 @@ Email Sender built with python 3, you can:
 
 
 Your contribution(s) is/are highly esteemed
-*github.com/elseagle
+github.com/elseagle
